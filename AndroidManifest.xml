@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="jp.shuri.android.pedometer"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="landscape"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".TestActivity"
+                  android:label="@string/test_app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    <receiver android:name="MainReceiver">
+    	<intent-filter>
+        	<action android:name="android.intent.action.BOOT_COMPLETED" />
+        	<category android:name="jp.shuri.android.pedometer" />
+    	</intent-filter>
+    	<!--
+    	<intent-filter>
+        	<action android:name="android.intent.action.SHUTDOWN" />
+        	<category android:name="jp.shuri.android.pedometer" />
+    	</intent-filter>
+    	<intent-filter>
+        	<action android:name="android.intent.action.REBOOT" />
+        	<category android:name="jp.shuri.android.pedometer" />
+    	</intent-filter>
+    	<intent-filter>
+    		<action android:name="android.intent.action.DATE_CHANGED" />
+    		<category android:name="jp.shuri.android.pedometer" />
+    	</intent-filter>
+    	-->
+    </receiver>
+    <service android:name="MainService"></service>
+    <provider android:name="jp.shuri.android.pedometer.PedometerProvider"
+        android:multiprocess="true"
+        android:authorities="jp.shuri.android.pedometer" />
+</application>
+
+
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+</manifest> 
