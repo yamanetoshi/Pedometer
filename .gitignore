@@ -1,5 +1,6 @@
 bin
 gen
 .classpath
+.settings/
 default.properties
 project.properties
