@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import jp.shuri.android.pedometer.PedometerProvider.Contract;
+
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -66,23 +68,23 @@ public class MainService extends Service implements SensorEventListener {
 		Log.d(TAG, "output2table");
 		String queryString = getQueryString();
 		Cursor mCursor =
-            context.getContentResolver().query(DBColumns.CONTENT_URI, null, DBColumns.KEY_DATE + " = " + queryString, null, null);
+            context.getContentResolver().query(Contract.Log.contentUri, null, Contract.Log.columns.get(2) + " = " + queryString, null, null);
 
 		if (mCursor == null) {
 			Log.d(TAG, "no records");
 			ContentValues initialValues = new ContentValues();
-	        initialValues.put(DBColumns.KEY_DATE, queryString);
-	        initialValues.put(DBColumns.KEY_COUNT, count);
+	        initialValues.put(Contract.Log.columns.get(2), queryString);
+	        initialValues.put(Contract.Log.columns.get(1), count);
 
-	        Uri tmp = context.getContentResolver().insert(DBColumns.CONTENT_URI, initialValues);
+	        Uri tmp = context.getContentResolver().insert(Contract.Log.contentUri, initialValues);
 	        Log.d(TAG, "insert result : " + tmp);
 		} else {
 			Log.d(TAG, "record exist " + queryString);
 			ContentValues args = new ContentValues();
-	        args.put(DBColumns.KEY_DATE, queryString);
-	        args.put(DBColumns.KEY_COUNT, count);
+	        args.put(Contract.Log.columns.get(2), queryString);
+	        args.put(Contract.Log.columns.get(1), count);
 
-	        int count = context.getContentResolver().update(DBColumns.CONTENT_URI, args, DBColumns.KEY_DATE + " = " + queryString, null);
+	        int count = context.getContentResolver().update(Contract.Log.contentUri, args, Contract.Log.columns.get(2) + " = " + queryString, null);
 	        Log.d(TAG, "update count is " + count);
 		}
 
@@ -116,19 +118,19 @@ public class MainService extends Service implements SensorEventListener {
         // 日付で fetch してあれば count の値を、なければ 0 を
 		String queryString = getQueryString();
 		Cursor mCursor =
-            getApplicationContext().getContentResolver().query(DBColumns.CONTENT_URI, null, DBColumns.KEY_DATE + " = " + queryString, null, null);
+            getApplicationContext().getContentResolver().query(Contract.Log.contentUri, null, Contract.Log.columns.get(2) + " = " + queryString, null, null);
 		if (mCursor == null) {
 			Log.d(TAG, "query returns no row");
 			count = 0;
 		} else {
-            count = mCursor.getInt(mCursor.getColumnIndexOrThrow(DBColumns.KEY_COUNT));
+            count = mCursor.getInt(mCursor.getColumnIndexOrThrow(Contract.Log.columns.get(1)));
             Log.d(TAG, "count = " + count);
 		}
 		debugPrint();
 	}
 
 	private void debugPrint() {
-		Cursor c = getApplicationContext().getContentResolver().query(DBColumns.CONTENT_URI, null, null, null, "_id DESC");
+		Cursor c = getApplicationContext().getContentResolver().query(Contract.Log.contentUri, null, null, null, "_id DESC");
 		if (c == null) {
 			Log.d(TAG, "no records");
 			return;
