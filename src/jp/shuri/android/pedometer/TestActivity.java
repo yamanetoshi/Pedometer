@@ -1,5 +1,6 @@
 package jp.shuri.android.pedometer;
 
+import jp.shuri.android.pedometer.PedometerProvider.Contract;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -30,10 +31,10 @@ public class TestActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				ContentValues initialValues = new ContentValues();
-		        initialValues.put(DBColumns.KEY_DATE, "2011-02-25");
-		        initialValues.put(DBColumns.KEY_COUNT, 15);
+		        initialValues.put(Contract.Log.columns.get(2), "2011-02-25");
+		        initialValues.put(Contract.Log.columns.get(1), 15);
 
-		        Uri tmp = getApplicationContext().getContentResolver().insert(DBColumns.CONTENT_URI, initialValues);
+		        Uri tmp = getApplicationContext().getContentResolver().insert(Contract.Log.contentUri, initialValues);
 		        
 		        queryAll(tv);
 			}
@@ -45,7 +46,7 @@ public class TestActivity extends Activity {
 			
 			@Override
 			public void onClick(View arg0) {
-				getApplicationContext().getContentResolver().delete(DBColumns.CONTENT_URI, null, null);
+				getApplicationContext().getContentResolver().delete(Contract.Log.contentUri, null, null);
 				
 				queryAll(tv);
 			}
@@ -55,7 +56,7 @@ public class TestActivity extends Activity {
 
 	private void queryAll(TextView tv2) {
 		StringBuffer tmp = new StringBuffer();
-		Cursor c = getApplicationContext().getContentResolver().query(DBColumns.CONTENT_URI, null, null, null, "_id DESC");
+		Cursor c = getApplicationContext().getContentResolver().query(Contract.Log.contentUri, null, null, null, "_id DESC");
 		if (c == null) {
 			tv2.setText("no data");
 			return;
