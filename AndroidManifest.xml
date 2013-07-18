@@ -3,6 +3,12 @@
       package="jp.shuri.android.pedometer"
       android:versionCode="1"
       android:versionName="1.0">
+    
+    
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+	<uses-sdk android:targetSdkVersion="15" android:minSdkVersion="15"/>
+
+    
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".MainActivity"
                   android:screenOrientation="landscape"
@@ -26,6 +32,12 @@
         	<action android:name="android.intent.action.BOOT_COMPLETED" />
         	<category android:name="jp.shuri.android.pedometer" />
     	</intent-filter>
+    	<intent-filter>
+               <action android:name="android.intent.action.PACKAGE_ADDED" />
+               <action android:name="android.intent.action.PACKAGE_REPLACED" />
+               <data android:scheme="package" />
+       </intent-filter>
+    	
     	<!--
     	<intent-filter>
         	<action android:name="android.intent.action.SHUTDOWN" />
@@ -47,7 +59,4 @@
         android:authorities="jp.shuri.android.pedometer.PedometerProvider" />
 </application>
 
-
-<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
-<uses-sdk android:targetSdkVersion="15" android:minSdkVersion="15"/>
 </manifest> 

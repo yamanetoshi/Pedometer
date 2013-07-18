@@ -15,6 +15,7 @@ public class MainReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
         */
             Log.d(TAG, "BOOT_COMPLETED");
+            Log.d(TAG, "intent.getAction() : " + intent.getAction());
             Intent i = new Intent(context, MainService.class);
             context.startService(i);
             /*
