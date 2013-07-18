@@ -70,7 +70,7 @@ public class MainService extends Service implements SensorEventListener {
 		Cursor mCursor =
             context.getContentResolver().query(Contract.Log.contentUri, null, Contract.Log.columns.get(2) + " = " + queryString, null, null);
 
-		if (mCursor == null) {
+		if (!mCursor.moveToFirst()) {
 			Log.d(TAG, "no records");
 			ContentValues initialValues = new ContentValues();
 	        initialValues.put(Contract.Log.columns.get(2), queryString);
@@ -119,11 +119,12 @@ public class MainService extends Service implements SensorEventListener {
 		String queryString = getQueryString();
 		Cursor mCursor =
             getApplicationContext().getContentResolver().query(Contract.Log.contentUri, null, Contract.Log.columns.get(2) + " = " + queryString, null, null);
-		if (mCursor == null) {
+		if (!mCursor.moveToFirst()) {
 			Log.d(TAG, "query returns no row");
 			count = 0;
 		} else {
-            count = mCursor.getInt(mCursor.getColumnIndexOrThrow(Contract.Log.columns.get(1)));
+	        count = Integer.parseInt(mCursor.getString(mCursor.getColumnIndexOrThrow(Contract.Log.columns.get(1))));
+//            count = mCursor.getInt(mCursor.getColumnIndexOrThrow(Contract.Log.columns.get(1)));
             Log.d(TAG, "count = " + count);
 		}
 		debugPrint();
