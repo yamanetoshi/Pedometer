@@ -43,8 +43,8 @@
     </receiver>
     <service android:name="MainService"></service>
     <provider android:name="jp.shuri.android.pedometer.PedometerProvider"
-        android:multiprocess="true"
-        android:authorities="jp.shuri.android.pedometer" />
+        android:multiprocess="false"
+        android:authorities="jp.shuri.android.pedometer.PedometerProvider" />
 </application>
 
 

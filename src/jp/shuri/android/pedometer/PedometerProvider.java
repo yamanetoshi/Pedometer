@@ -25,7 +25,7 @@ public class PedometerProvider extends ContentProvider {
 	   private String TAG = "PedometerProvider";
 		
 	   /** URIのauthority. */
-	   private static final String AUTHORITY = "jp.shuri.android.pedometer.provider";
+	   private static final String AUTHORITY = "jp.shuri.android.pedometer.PedometerProvider";
 	    
 	   /** SQLiteデータベースのファイル名. */
 	   private static final String SQLITE_FILENAME = "pedometer.sqlite";
@@ -278,7 +278,7 @@ public class PedometerProvider extends ContentProvider {
 	           try {
 	               db.execSQL("CREATE TABLE log (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 	                  		"count TEXT, " +
-	                  		"date TEXT, " +
+	                  		"date TEXT " +
 	                        ")");
 	               db.setTransactionSuccessful();
 	           } finally {
